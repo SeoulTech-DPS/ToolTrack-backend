@@ -44,17 +44,17 @@ def SignUp(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             studentId = request.POST.get('studentId')
-
+            
             # 새로운 Student 객체 생성
             student = Student.objects.create(
                 studentId=studentId,
                 username=username,
                 password=password
             )
-
+            
             # login
             login(request, student)
-
+            
             # redirect to main
             return redirect('/')
     else:
