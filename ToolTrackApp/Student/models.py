@@ -1,6 +1,7 @@
 from django.db import models
 
-# Create your models here.
+# models according to swagger
+
 class Student(models.Model):
     studentId = models.CharField(max_length=100)
     name = models.CharField(max_length=100)

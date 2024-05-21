@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TooltrackappConfig(AppConfig):
+class StudentConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "ToolTrackApp"
+    name = "ToolTrackApp.Student"
