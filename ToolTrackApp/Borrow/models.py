@@ -6,6 +6,7 @@ class Item(models.Model):
     name = models.CharField(max_length=100)
     available = models.BooleanField(default=True)
     holderId = models.IntegerField(default=0)
+    roomId = models.IntegerField(default=302)
 
     def __str__(self):
         return self.name
