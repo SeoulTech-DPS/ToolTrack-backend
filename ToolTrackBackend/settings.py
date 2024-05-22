@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ToolTrackApp.Borrow',
     'ToolTrackApp.Student',
     'ToolTrackApp.Room',
+    'ToolTrackApp'
 ]
 
 MIDDLEWARE = [
