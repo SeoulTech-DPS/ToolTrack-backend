@@ -37,11 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'ToolTrackApp.Borrow',
-    'ToolTrackApp.Student',
-    'ToolTrackApp.Room',
-    'ToolTrackApp.Add',
-    'ToolTrackApp'
+    "ToolTrackApp"
 ]
 
 MIDDLEWARE = [
