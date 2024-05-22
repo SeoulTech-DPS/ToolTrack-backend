@@ -7,6 +7,11 @@ class Command(BaseCommand):
     help = 'Populates the database with initial data'
 
     def handle(self, *args, **kwargs):
+
+        Student.objects.all().delete()
+        Item.objects.all().delete()
+        Room.objects.all().delete() 
+
         # Add items
         items = [
             Item(name='Item1'),
@@ -33,8 +38,8 @@ class Command(BaseCommand):
 
         # Add students
         students = [
-            Student(studentId='S001', name='Student1', username='student1', password='pass1', isAdmin=True),
-            Student(studentId='S002', name='Student2', username='student2', password='pass2', isAdmin=False)
+            Student(studentId='1', name='Student1', username='student1', password='pass1', isAdmin=True),
+            Student(studentId='2', name='Student2', username='student2', password='pass2', isAdmin=False)
         ]
         Student.objects.bulk_create(students)
 
