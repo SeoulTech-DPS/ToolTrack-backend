@@ -17,16 +17,18 @@ Including another URLconf
 
 from django.urls import path
 from django.contrib.auth.views import LoginView
-from ToolTrackApp.Student.views import SignUp
+from ToolTrackApp.Student.views import sign_up
+from ToolTrackApp.Add.views import add_item
 from django.contrib import admin
 from django.urls import path, include
 
 
 urlpatterns = [
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    path('SignUp/', SignUp, name='SignUp'),
+    path('SignUp/', sign_up, name='SignUp'),
     path('admin/', admin.site.urls),
     path('borrow/', include('ToolTrackApp.Borrow.urls')),
     path('student/', include('ToolTrackApp.Student.urls')),
     path('room/', include('ToolTrackApp.Room.urls')),
+    path('add/', add_item)
 ]
