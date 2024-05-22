@@ -22,8 +22,8 @@ class Command(BaseCommand):
 
         # Add rooms
         rooms = [
-            Room(name='Room1'),
-            Room(name='Room2')
+            Room(name='Room1', number=302),
+            Room(name='Room2', number=505)
         ]
         Room.objects.bulk_create(rooms)
 
