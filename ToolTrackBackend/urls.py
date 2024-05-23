@@ -25,7 +25,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    path('SignUp/', sign_up, name='SignUp'),
+    path('signup/', sign_up, name='SignUp'),
     path('admin/', admin.site.urls),
     path('borrow/', include('ToolTrackApp.Borrow.urls')),
     path('student/', include('ToolTrackApp.Student.urls')),

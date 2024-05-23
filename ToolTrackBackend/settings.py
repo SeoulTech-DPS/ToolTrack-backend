@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'ToolTrackApp.Student',
     'ToolTrackApp.Room',
     'ToolTrackApp.Add',
-    'ToolTrackApp'
+    'ToolTrackApp',
+    'csp'
 ]
 
 MIDDLEWARE = [
@@ -52,7 +53,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'csp.middleware.CSPMiddleware',
 ]
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", 'https://your-frontend-domain.com')
+CSP_IMG_SRC = ("'self'", 'data:', 'https://your-frontend-domain.com')
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", 'https://your-frontend-domain.com')
 
 ROOT_URLCONF = "ToolTrackBackend.urls"
 

@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 # use auth login from django
 
@@ -35,9 +37,12 @@ def login(request):
 
 
 
-
+@csrf_exempt 
+@require_http_methods(["POST"])
 def sign_up(request):
+    print("Redirected")
     if request.method == 'POST':
+        print("Success redirection")
         form = UserCreationForm(request.POST)
         if form.is_valid():
             # 사용자가 입력한 정보에서 username, password 추출
@@ -59,4 +64,4 @@ def sign_up(request):
             return redirect('/')
     else:
         form = UserCreationForm()
-    return render(request, '/SignUp.html', {'form': form})
+    return render(request, 'localhost:3000/signup.html', {'form': form})
