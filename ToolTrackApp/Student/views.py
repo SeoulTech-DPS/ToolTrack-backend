@@ -34,34 +34,19 @@ def login(request):
     else:
         return HttpResponse("Method not allowed", status=405)
 
+from django.http import JsonResponse
+import json
 
-
-
-@csrf_exempt 
+@csrf_exempt
 @require_http_methods(["POST"])
-def sign_up(request):
-    print("Redirected")
-    if request.method == 'POST':
-        print("Success redirection")
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            # 사용자가 입력한 정보에서 username, password 추출
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            studentId = request.POST.get('studentId')
-            
-            # 새로운 Student 객체 생성
-            student = Student.objects.create(
-                studentId=studentId,
-                username=username,
-                password=password
-            )
-            
-            # login
-            login(request, student)
-            
-            # redirect to main
-            return redirect('/')
-    else:
-        form = UserCreationForm()
-    return render(request, 'localhost:3000/signup.html', {'form': form})
+def signup(request):
+    try:
+        data = json.loads(request.body)
+        student_id = data['studentId']
+        username = data['username']
+        password = data['password']
+        # Add logic to handle signup, such as creating a new user
+        return JsonResponse({"message": "Sign up successful"}, status=201)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
