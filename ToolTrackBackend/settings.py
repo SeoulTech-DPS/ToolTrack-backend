@@ -25,8 +25,10 @@ SECRET_KEY = "django-insecure-72cz(h_ca-7t!hlf@*y33v(%0px@f@h!yvqsgsi6bqxm3i7r-)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
 
+# Allow all hosts for development (not recommended for production)
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -41,10 +43,13 @@ INSTALLED_APPS = [
     'ToolTrackApp.Student',
     'ToolTrackApp.Room',
     'ToolTrackApp.Add',
-    'ToolTrackApp'
+    'ToolTrackApp',
+    'corsheaders',  # Add corsheaders here
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Add this as high as possible
+    'django.middleware.common.CommonMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
