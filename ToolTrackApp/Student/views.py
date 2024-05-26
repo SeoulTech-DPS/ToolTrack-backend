@@ -15,20 +15,30 @@ from .models import Student
 def login(request):
     print("Entered")
     if request.method == 'POST':
+        print("Entered post")
         try:
             data = json.loads(request.body)
             studentId = data.get('studentId')
             password = data.get('password')
+            print("After data")
         except json.JSONDecodeError:
+            print("Got error with data")
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
         try:
-            student = Student.objects.get(studentId=studentId)
+            print("Tries to get student")
+            student = Student.objects.get(username=studentId)
+            print("Got student")
         except Student.DoesNotExist:
+            print("Couldn't get student ")
             return JsonResponse({'error': 'Invalid ID'}, status=400)
 
-        if check_password(password, student.password):
-            login(request, student)
+        print("Student password: ", student.password)
+
+        if password == student.password:
+            print("tries to get password")
+            #login(request, student)
+            print("Got password: ")
             return JsonResponse({'message': 'Login successful'}, status=200)
         else:
             return JsonResponse({'error': 'Invalid password'}, status=400)
