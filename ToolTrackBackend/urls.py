@@ -16,19 +16,20 @@ Including another URLconf
 """
 
 from django.urls import path
-from django.contrib.auth.views import LoginView
-from ToolTrackApp.Student.views import signup
+from ToolTrackApp.Student.views import signup, login, getTestResponse
 from ToolTrackApp.Add.views import add_item
 from django.contrib import admin
 from django.urls import path, include
 
-
 urlpatterns = [
-    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('login', login, name='login'),
     path('signup', signup, name='signup'),
     path('admin/', admin.site.urls),
     path('borrow/', include('ToolTrackApp.Borrow.urls')),
     path('student/', include('ToolTrackApp.Student.urls')),
     path('room/', include('ToolTrackApp.Room.urls')),
-    path('add/', add_item)
+    path('add/', add_item),
+    path('test', getTestResponse)
+
+    #path('get_csrf_token', get_csrf_token, name='get_csrf_token')
 ]
