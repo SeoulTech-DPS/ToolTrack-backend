@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 import json
+from .serializer import StudentSerializer
 
 # use auth login from django
 
@@ -25,7 +26,8 @@ def login(request):
             return JsonResponse({'error': 'Invalid ID'}, status=400)
 
         if password == student.password:
-            return JsonResponse({'message': 'Login successful'}, status=200)
+            student_serializer = StudentSerializer(student)
+            return JsonResponse(student_serializer.data, status=200)
         else:
             return JsonResponse({'error': 'Invalid password'}, status=400)
     else:
