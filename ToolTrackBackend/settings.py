@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ToolTrackApp.Student',
     'ToolTrackApp.Room',
     'ToolTrackApp.Add',
+    'ToolTrackApp.Remove',
     'ToolTrackApp',
     'corsheaders',  # Add corsheaders here
 ]
