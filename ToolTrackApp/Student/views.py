@@ -10,29 +10,40 @@ from django.views.decorators.http import require_http_methods
 
 from .models import Student
 
+@csrf_exempt
+@require_http_methods(["POST"])
 def login(request):
+    print("Entered")
     if request.method == 'POST':
-        studentId = request.POST.get('studentId')
-        password = request.POST.get('password')
+        print("Entered post")
+        try:
+            data = json.loads(request.body)
+            studentId = data.get('studentId')
+            password = data.get('password')
+            print("After data")
+        except json.JSONDecodeError:
+            print("Got error with data")
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
         try:
-            student = Student.objects.get(studentId=studentId)
+            print("Tries to get student")
+            student = Student.objects.get(username=studentId)
+            print("Got student")
         except Student.DoesNotExist:
-            # JavaScript alert error message pop up, u can show it through {error}
-            return render(request, 'login.html', {'error': 'Invalid ID'})
+            print("Couldn't get student ")
+            return JsonResponse({'error': 'Invalid ID'}, status=400)
 
-        # password
-        if check_password(password, student.password):
-            # login
-            login(request, student)
-            # / will be mainpage
+        print("Student password: ", student.password)
 
-            return redirect('/') 
+        if password == student.password:
+            print("tries to get password")
+            #login(request, student)
+            print("Got password: ")
+            return JsonResponse({'message': 'Login successful'}, status=200)
         else:
-            # JavaScript alert error message pop up, u can show it through {error}
-            return render(request, 'login.html', {'error': 'Invalid password'})
+            return JsonResponse({'error': 'Invalid password'}, status=400)
     else:
-        return HttpResponse("Method not allowed", status=405)
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 from django.http import JsonResponse
 import json
@@ -45,8 +56,25 @@ def signup(request):
         student_id = data['studentId']
         username = data['username']
         password = data['password']
-        # Add logic to handle signup, such as creating a new user
+
+        # Check if the username or studentId already exists
+        if Student.objects.filter(username=username).exists():
+            return JsonResponse({"error": "Username already exists"}, status=400)
+        if Student.objects.filter(studentId=student_id).exists():
+            return JsonResponse({"error": "Student ID already exists"}, status=400)
+
+        # Create and save the new student
+        student = Student(
+            studentId=student_id,
+            name='',  # Assuming name is not provided in the request
+            username=username,
+            password=password  # Save the password as plain text (not recommended)
+        )
+        student.save()
+
         return JsonResponse({"message": "Sign up successful"}, status=201)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
+    
+def getTestResponse(request):
+    return JsonResponse({"message":"Sign up successful"})
