@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.urls import path
-from ToolTrackApp.Student.views import signup, login, getTestResponse
+from ToolTrackApp.Student.views import signup, login
 from ToolTrackApp.Add.views import add_item
 from django.contrib import admin
 from django.urls import path, include
@@ -29,7 +29,4 @@ urlpatterns = [
     path('student/', include('ToolTrackApp.Student.urls')),
     path('room/', include('ToolTrackApp.Room.urls')),
     path('add/', add_item),
-    path('test', getTestResponse)
-
-    #path('get_csrf_token', get_csrf_token, name='get_csrf_token')
 ]
