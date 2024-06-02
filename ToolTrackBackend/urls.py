@@ -30,5 +30,7 @@ urlpatterns = [
     path('borrow/', include('ToolTrackApp.Borrow.urls')),
     path('student/', include('ToolTrackApp.Student.urls')),
     path('room/', include('ToolTrackApp.Room.urls')),
-    path('add/', add_item)
+    path('update/', include('ToolTrackApp.Update.urls')),
+    path('add/', add_item),
+
 ]

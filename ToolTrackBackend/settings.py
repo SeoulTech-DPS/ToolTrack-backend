@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ToolTrackApp.Room',
     'ToolTrackApp.Add',
     'ToolTrackApp',
+    'ToolTrackApp.Update'
     'corsheaders',  # Add corsheaders here
 ]
 
