@@ -14,9 +14,12 @@ class Command(BaseCommand):
 
         # Add items
         items = [
-            Item(name='Laptop'),
-            Item(name='Charger'),
-            Item(name='Coke')
+            Item(name='Calculator', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name="Earphone"),
+            Item(name='Ruler'),
+            Item(name='Tissue'),
         ]
         Item.objects.bulk_create(items)
 
@@ -30,12 +33,16 @@ class Command(BaseCommand):
         # Link items and rooms
         room1 = Room.objects.get(name='Room 302')
         room2 = Room.objects.get(name='Room 502')
-        item1 = Item.objects.get(name='Laptop')
-        item2 = Item.objects.get(name='Charger')
-        item3 = Item.objects.get(name='Coke')
 
-        room1.items.add(item1, item2, item3)
+        item1 = Item.objects.get(name='Calculator')
+        item2 = Item.objects.get(name='Blanket')
+        item3 = Item.objects.get(name='Medicine')
+        item4 = Item.objects.get(name="Earphone")
+        item5 = Item.objects.get(name='Ruler')
+        item6 = Item.objects.get(name="Tissue")
 
+        room1.items.add(item4, item5, item6)
+        room2.items.add(item1, item2, item3)
         # Add students
         students = [
             Student(studentId='23019810', name='John Smith', password='pass1', isAdmin=True),

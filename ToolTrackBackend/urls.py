@@ -21,6 +21,7 @@ from ToolTrackApp.Add.views import add_item
 from django.contrib import admin
 from django.urls import path, include
 from ToolTrackApp.Remove.views import delete_item
+from ToolTrackApp.Borrow.views import get_items_by_room
 
 urlpatterns = [
     path('login', login, name='login'),
@@ -30,5 +31,6 @@ urlpatterns = [
     path('student/', include('ToolTrackApp.Student.urls')),
     path('room/', include('ToolTrackApp.Room.urls')),
     path('items/add', add_item),
-    path('items/remove/<int:item_id>', delete_item)
+    path('items/remove/<int:item_id>', delete_item),
+    path('get_items_by_room',get_items_by_room)
 ]
