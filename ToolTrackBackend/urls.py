@@ -30,5 +30,6 @@ urlpatterns = [
     path('student/', include('ToolTrackApp.Student.urls')),
     path('room/', include('ToolTrackApp.Room.urls')),
     path('items/add', add_item),
+    path('update', include('ToolTrackApp.Update.urls')),
     path('items/remove/<int:item_id>', delete_item)
 ]
