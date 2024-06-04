@@ -10,36 +10,42 @@ class Command(BaseCommand):
 
         Student.objects.all().delete()
         Item.objects.all().delete()
-        Room.objects.all().delete() 
-
-        # Add items
-        items = [
-            Item(name='Item1'),
-            Item(name='Item2'),
-            Item(name='Item3')
-        ]
-        Item.objects.bulk_create(items)
+        Room.objects.all().delete()
 
         # Add rooms
         rooms = [
-            Room(name='Room1', number=302),
-            Room(name='Room2', number=505)
+            Room(name='Room 302', number=302),
+            Room(name='Room 502', number=502)
         ]
         Room.objects.bulk_create(rooms)
 
-        # Link items and rooms
-        room1 = Room.objects.get(name='Room1')
-        room2 = Room.objects.get(name='Room2')
-        item1 = Item.objects.get(name='Item1')
-        item2 = Item.objects.get(name='Item2')
-        item3 = Item.objects.get(name='Item3')
-
-        room1.items.add(item1, item2, item3)
+        # Add items
+        items = [
+            Item(name='Calculator', roomId=502),
+            Item(name='Calculator', roomId=502),
+            Item(name='Calculator', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name='Earphone', roomId=302),
+            Item(name='Earphone', roomId=302),
+            Item(name='Earphone', roomId=302),
+            Item(name='Ruler', roomId=302),
+            Item(name='Ruler', roomId=302),
+            Item(name='Ruler', roomId=302),
+            Item(name='Tissue', roomId=302),
+            Item(name='Tissue', roomId=302),
+            Item(name='Tissue', roomId=302)
+        ]
+        Item.objects.bulk_create(items)
 
         # Add students
         students = [
-            Student(studentId='1', name='Student1', username='student1', password='pass1', isAdmin=True),
-            Student(studentId='2', name='Student2', username='student2', password='pass2', isAdmin=False)
+            Student(studentId='23019810', name='John Smith', password='pass1', isAdmin=True),
+            Student(studentId='20019801', name='김민수', password='pass2', isAdmin=False)
         ]
         Student.objects.bulk_create(students)
 

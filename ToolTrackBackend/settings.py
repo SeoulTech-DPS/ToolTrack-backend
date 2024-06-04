@@ -28,7 +28,7 @@ DEBUG = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Allow all hosts for development (not recommended for production)
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', "http://localhost:3000"]
 
 # Application definition
 
@@ -43,20 +43,31 @@ INSTALLED_APPS = [
     'ToolTrackApp.Student',
     'ToolTrackApp.Room',
     'ToolTrackApp.Add',
+    'ToolTrackApp.Remove',
     'ToolTrackApp',
     'corsheaders',  # Add corsheaders here
 ]
 
+APPEND_SLASH = False
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Add this as high as possible
+    'corsheaders.middleware.CorsMiddleware',  # CORS Middleware
     'django.middleware.common.CommonMiddleware',
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF Middleware
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+# If using CSRF protection
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = "ToolTrackBackend.urls"

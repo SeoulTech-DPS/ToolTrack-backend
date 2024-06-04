@@ -1,41 +1,37 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
+import json
+from .serializer import StudentSerializer
 
 # use auth login from django
 
 from .models import Student
 
+@csrf_exempt
+@require_http_methods(["POST"])
 def login(request):
     if request.method == 'POST':
-        studentId = request.POST.get('studentId')
-        password = request.POST.get('password')
+        try:
+            data = json.loads(request.body)
+            studentId = data.get('studentId')
+            password = data.get('password')
+            print("After data")
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
         try:
             student = Student.objects.get(studentId=studentId)
         except Student.DoesNotExist:
-            # JavaScript alert error message pop up, u can show it through {error}
-            return render(request, 'login.html', {'error': 'Invalid ID'})
+            return JsonResponse({'error': 'Invalid ID'}, status=400)
 
-        # password
-        if check_password(password, student.password):
-            # login
-            login(request, student)
-            # / will be mainpage
-
-            return redirect('/') 
+        if password == student.password:
+            student_serializer = StudentSerializer(student)
+            return JsonResponse(student_serializer.data, status=200)
         else:
-            # JavaScript alert error message pop up, u can show it through {error}
-            return render(request, 'login.html', {'error': 'Invalid password'})
+            return JsonResponse({'error': 'Invalid password'}, status=400)
     else:
-        return HttpResponse("Method not allowed", status=405)
-
-from django.http import JsonResponse
-import json
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -43,10 +39,21 @@ def signup(request):
     try:
         data = json.loads(request.body)
         student_id = data['studentId']
-        username = data['username']
+        studentName = data['name']
         password = data['password']
-        # Add logic to handle signup, such as creating a new user
+
+        if Student.objects.filter(studentId=student_id).exists():
+            return JsonResponse({"error": "Student ID already exists"}, status=400)
+
+        # Create and save the new student
+        student = Student(
+            studentId=student_id,
+            name=studentName ,  # Assuming name is not provided in the request
+            password=password  # Save the password as plain text (not recommended)
+        )
+        student.save()
+
         return JsonResponse({"message": "Sign up successful"}, status=201)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
+    
