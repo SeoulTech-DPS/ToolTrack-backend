@@ -13,7 +13,9 @@ def add_item(request):
         data = json.loads(request.body.decode('utf-8'))
         name = data.get('name')
         room_id = data.get('roomId')
+        amount = data.get('amount')
 
+        print(room_id)
         if not name:
             return JsonResponse({'message': 'Name is required'}, status=400)
         if not room_id:
@@ -23,7 +25,8 @@ def add_item(request):
         room = get_object_or_404(Room, number=room_id)
 
         # Create the item
-        item = Item.objects.create(name=name)
+        for i in range (0,amount):
+            item = Item.objects.create(name=name)
 
         # Associate the item with the room
         room.items.add(item)

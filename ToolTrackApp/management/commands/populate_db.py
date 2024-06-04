@@ -10,18 +10,7 @@ class Command(BaseCommand):
 
         Student.objects.all().delete()
         Item.objects.all().delete()
-        Room.objects.all().delete() 
-
-        # Add items
-        items = [
-            Item(name='Calculator', roomId=502),
-            Item(name='Blanket', roomId=502),
-            Item(name='Medicine', roomId=502),
-            Item(name="Earphone"),
-            Item(name='Ruler'),
-            Item(name='Tissue'),
-        ]
-        Item.objects.bulk_create(items)
+        Room.objects.all().delete()
 
         # Add rooms
         rooms = [
@@ -30,19 +19,29 @@ class Command(BaseCommand):
         ]
         Room.objects.bulk_create(rooms)
 
-        # Link items and rooms
-        room1 = Room.objects.get(name='Room 302')
-        room2 = Room.objects.get(name='Room 502')
+        # Add items
+        items = [
+            Item(name='Calculator', roomId=502),
+            Item(name='Calculator', roomId=502),
+            Item(name='Calculator', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Blanket', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name='Medicine', roomId=502),
+            Item(name='Earphone', roomId=302),
+            Item(name='Earphone', roomId=302),
+            Item(name='Earphone', roomId=302),
+            Item(name='Ruler', roomId=302),
+            Item(name='Ruler', roomId=302),
+            Item(name='Ruler', roomId=302),
+            Item(name='Tissue', roomId=302),
+            Item(name='Tissue', roomId=302),
+            Item(name='Tissue', roomId=302)
+        ]
+        Item.objects.bulk_create(items)
 
-        item1 = Item.objects.get(name='Calculator')
-        item2 = Item.objects.get(name='Blanket')
-        item3 = Item.objects.get(name='Medicine')
-        item4 = Item.objects.get(name="Earphone")
-        item5 = Item.objects.get(name='Ruler')
-        item6 = Item.objects.get(name="Tissue")
-
-        room1.items.add(item4, item5, item6)
-        room2.items.add(item1, item2, item3)
         # Add students
         students = [
             Student(studentId='23019810', name='John Smith', password='pass1', isAdmin=True),

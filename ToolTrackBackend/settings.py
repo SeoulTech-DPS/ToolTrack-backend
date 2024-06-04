@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',  # Add corsheaders here
 ]
 
+APPEND_SLASH = False
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # CORS Middleware
     'django.middleware.common.CommonMiddleware',
